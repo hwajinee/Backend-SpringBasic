@@ -54,7 +54,6 @@ public class UserController {
         log.info("UserController.showUserList");
 
         //미완성
-
         return "user/list";
 
     }
