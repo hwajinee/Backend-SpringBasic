@@ -20,40 +20,31 @@ public class HomeController {
 
     private final MemoryQuestionRepository memoryQuestionRepository;
 
-    @RequestMapping("/homeV1")
-//    @RequestMapping("/")
-    public ModelAndView showHomeV1(HttpServletRequest request, HttpServletResponse response) {
-        log.info("HomeController.homeV1");
-
-        ModelAndView modelAndView = new ModelAndView("home");
-
-        List<Question> questions = memoryQuestionRepository.findAll();
-        modelAndView.addObject("questions", questions);
-
-        return modelAndView;
-    }
-
-    @RequestMapping("/homeV2")
-//    @RequestMapping("/")
-    public ModelAndView showHomeV2() {
-        log.info("HomeController.homeV2");
-
-        ModelAndView modelAndView = new ModelAndView("home");
+    //localhost:8080/
+    //@RequestMapping("/")
+    //public ModelAndView showHome1(HttpServletRequest requset, HttpServletResponse response) {
+    public ModelAndView showHome1() { // 매개변수 필요 없으면 생략.
+        log.info("HomeController.showHome1");
 
         List<Question> questions = memoryQuestionRepository.findAll();
-        modelAndView.addObject("questions", questions);
+        ModelAndView mav = new ModelAndView("home");
 
-        return modelAndView;
+        mav.addObject("questions", questions);
+
+        return mav;
     }
 
     @RequestMapping("/")
-    public String showHomeV3(Model model) {
-        log.info("HomeController.homeV3");
+    public String showHome2(Model model){
+        log.info("HomeController.showHome2");
 
         List<Question> questions = memoryQuestionRepository.findAll();
         model.addAttribute("questions", questions);
 
         return "home";
     }
+
+    // showHome1) req,resp를 받아서, 직접 modelAndView를 생성하고 이를 반환했음.
+    // showHome2*) model을 받아서 속성값을 넣고 viewName을 리턴하면, SpringMVC는 자동으로 이를 modelAndView를 반환해준다.
 
 }
